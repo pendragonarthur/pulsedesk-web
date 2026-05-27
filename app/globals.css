@@ -1,26 +1,209 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─────────────────────────────────────────────────────────────
+   LIGHT MODE
+   Primário: roxo profundo  |  Destaque: laranja  |  Base: cinza-escuro quase preto
+   ───────────────────────────────────────────────────────────── */
+:root {
+  /* Base */
+  --background: oklch(0.97 0 0);
+  /* quase branco, suave */
+  --foreground: oklch(0.13 0.01 285);
+  /* preto com leve tom roxo */
+
+  /* Cards / popovers */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.13 0.01 285);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.13 0.01 285);
+
+  /* Primário — roxo profundo */
+  --primary: oklch(0.38 0.18 295);
+  /* roxo escuro */
+  --primary-foreground: oklch(0.98 0 0);
+  /* branco */
+
+  /* Secundário — preto suavizado */
+  --secondary: oklch(0.18 0.02 285);
+  /* quase preto com toque roxo */
+  --secondary-foreground: oklch(0.95 0 0);
+
+  /* Muted — cinza neutro */
+  --muted: oklch(0.93 0.005 285);
+  --muted-foreground: oklch(0.50 0.02 285);
+
+  /* Accent — laranja vibrante */
+  --accent: oklch(0.72 0.19 46);
+  /* laranja */
+  --accent-foreground: oklch(0.12 0 0);
+  /* preto para contraste */
+
+  /* Destructive — vermelho-laranja */
+  --destructive: oklch(0.60 0.22 25);
+
+  /* Borders / inputs */
+  --border: oklch(0.86 0.01 285);
+  --input: oklch(0.86 0.01 285);
+
+  /* Ring — laranja suave para foco */
+  --ring: oklch(0.72 0.19 46);
+
+  /* Charts — gradiente roxo → laranja */
+  --chart-1: oklch(0.38 0.18 295);
+  /* roxo escuro */
+  --chart-2: oklch(0.52 0.20 295);
+  /* roxo médio */
+  --chart-3: oklch(0.72 0.19 46);
+  /* laranja */
+  --chart-4: oklch(0.62 0.20 32);
+  /* laranja-avermelhado */
+  --chart-5: oklch(0.24 0.08 285);
+  /* quase preto-roxo */
+
+  --radius: 0.625rem;
+
+  /* Sidebar */
+  --sidebar: oklch(0.16 0.03 288);
+  /* preto-roxo */
+  --sidebar-foreground: oklch(0.92 0 0);
+  --sidebar-primary: oklch(0.72 0.19 46);
+  /* laranja como primary da sidebar */
+  --sidebar-primary-foreground: oklch(0.10 0 0);
+  --sidebar-accent: oklch(0.28 0.08 290);
+  /* roxo médio-escuro */
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.72 0.19 46);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DARK MODE
+   Fundo preto-roxo profundo  |  Primário: roxo brilhante  |  Destaque: laranja
+   ───────────────────────────────────────────────────────────── */
+.dark {
+  /* Base */
+  --background: oklch(0.11 0.02 288);
+  /* preto com toque roxo */
+  --foreground: oklch(0.94 0.005 285);
+  /* branco levemente roxado */
+
+  /* Cards / popovers */
+  --card: oklch(0.16 0.03 288);
+  /* preto-roxo levemente mais claro */
+  --card-foreground: oklch(0.94 0.005 285);
+  --popover: oklch(0.16 0.03 288);
+  --popover-foreground: oklch(0.94 0.005 285);
+
+  /* Primário — roxo vibrante no dark */
+  --primary: oklch(0.62 0.22 295);
+  /* roxo brilhante */
+  --primary-foreground: oklch(0.98 0 0);
+
+  /* Secundário — roxo muito escuro */
+  --secondary: oklch(0.22 0.06 290);
+  --secondary-foreground: oklch(0.93 0 0);
+
+  /* Muted */
+  --muted: oklch(0.20 0.04 288);
+  --muted-foreground: oklch(0.60 0.03 285);
+
+  /* Accent — laranja brilhante */
+  --accent: oklch(0.74 0.20 46);
+  --accent-foreground: oklch(0.10 0 0);
+
+  /* Destructive — laranja-vermelho mais intenso no dark */
+  --destructive: oklch(0.68 0.23 25);
+
+  /* Borders / inputs */
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+
+  /* Ring — laranja */
+  --ring: oklch(0.74 0.20 46);
+
+  /* Charts */
+  --chart-1: oklch(0.62 0.22 295);
+  /* roxo brilhante */
+  --chart-2: oklch(0.74 0.20 46);
+  /* laranja */
+  --chart-3: oklch(0.46 0.17 295);
+  /* roxo médio */
+  --chart-4: oklch(0.64 0.21 32);
+  /* laranja-avermelhado */
+  --chart-5: oklch(0.30 0.10 288);
+  /* roxo muito escuro */
+
+  /* Sidebar */
+  --sidebar: oklch(0.09 0.02 288);
+  /* mais escuro que o background */
+  --sidebar-foreground: oklch(0.92 0.005 285);
+  --sidebar-primary: oklch(0.62 0.22 295);
+  /* roxo brilhante */
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.20 0.06 290);
+  --sidebar-accent-foreground: oklch(0.94 0 0);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.74 0.20 46);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    @apply font-sans;
+  }
 }
