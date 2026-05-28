@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from "react"
 
-import axios from "axios"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -17,32 +16,12 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { useSignUp } from "@/hooks/use-signup"
 
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
 
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-
-  const handleSubmit = async (e: React.SubmitEvent) => {
-    e.preventDefault();
-
-    if (password !== confirmPassword) {
-      console.log("Senhas não coincidem")
-      return
-    }
-
-    try {
-      const response = await axios.post("http://localhost:5126/api/auth/register", {
-        name: name, email: email, password: password,
-      }, { headers: { 'Content-Type': 'application/json' }, })
-      console.log(response)
-    } catch (error) {
-      console.log("Erro", error)
-    }
-  }
+  const { handleSubmit, name, setName, email, setEmail, password, setConfirmPassword, setPassword, confirmPassword } = useSignUp()
 
 
   return (

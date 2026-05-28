@@ -1,8 +1,9 @@
 "use client"
-import { useState } from "react"
-import axios from "axios"
-
 import { cn } from "@/lib/utils"
+
+import { saveToken } from "@/services/auth.service"
+import { userLogin } from "@/services/auth.service"
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -18,28 +19,14 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { useLogin } from "@/hooks/use-login"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
-  const handleSubmit = async (e: React.SubmitEvent) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post("http://localhost:5126/api/auth/login", {
-        email: email, password: password
-      }, { headers: { "Content-Type": "application/json" } })
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-    }
-
-  }
+  const { email, setEmail, password, setPassword, handleSubmit } = useLogin()
 
 
   return (
