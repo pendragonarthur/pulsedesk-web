@@ -36,6 +36,6 @@ export const del = async <T>(url: string): Promise<T> => {
 
 
 export const put = async <T>(url: string, body: unknown): Promise<T> => {
-    const response = await api.put<T>(url)
+    const response = await api.put<T>(url, body)
     return response.data
 }

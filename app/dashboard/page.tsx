@@ -3,11 +3,11 @@
 import { Button } from "@/components/ui/button"
 
 
-import DashboardHeader from "../components/DashboardHeader"
+import DashboardHeader from "../components/dashboard/dashboard-header"
 import DashboardTable from "../tickets/page"
 
 import { useEffect, useState } from "react"
-import { CreateTicketModal } from "../components/CreateTicketModal"
+import { CreateTicketModal } from "../components/dashboard/create-ticket-modal"
 import { Ticket } from "@/types/ticket"
 import { getAllTickets } from "@/services/ticket.service"
 export default function Dashboard() {

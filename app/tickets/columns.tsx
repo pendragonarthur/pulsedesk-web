@@ -2,6 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Ticket } from "@/types/ticket"
+import { TicketActions } from "../components/dashboard/ticket-actions"
 
 export const columns: ColumnDef<Ticket>[] = [
     {
@@ -11,10 +12,6 @@ export const columns: ColumnDef<Ticket>[] = [
     {
         accessorKey: "title",
         header: "Título",
-    },
-    {
-        accessorKey: "owner",
-        header: "Responsável",
     },
     {
         accessorKey: "status",
@@ -29,7 +26,11 @@ export const columns: ColumnDef<Ticket>[] = [
         header: "Atualizado em",
     },
     {
-        accessorKey: "actions",
+        id: "actions",
         header: "Ações",
+        cell: ({ row }) => {
+            const ticket = row.original;
+            return <TicketActions ticket={ticket} />
+        }
     },
 ]
