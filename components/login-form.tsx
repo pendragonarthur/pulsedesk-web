@@ -62,7 +62,7 @@ export function LoginForm({
                 <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
               </Field>
               <Field>
-                <Button type="submit" className="cursor-pointer">Entrar</Button>
+                <Button type="submit" >Entrar</Button>
                 <FieldDescription className="text-center">
                   Crie sua conta <a href="signup">aqui</a>
                 </FieldDescription>

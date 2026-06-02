@@ -46,7 +46,6 @@ export function CreateTicketModal({ open, onOpenChange, onTicketCreated }: Creat
 
     }
 
-
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-lg ">

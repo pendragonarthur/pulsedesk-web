@@ -15,9 +15,11 @@ interface CreateTicketModalProps {
     open: boolean
     onOpenChange: (open: boolean) => void
     ticket: Ticket
+    onTicketDeleted: () => Promise<void>
+
 }
 
-export function DeleteTicketModal({ open, onOpenChange, ticket }: CreateTicketModalProps) {
+export function DeleteTicketModal({ open, onOpenChange, ticket, onTicketDeleted }: CreateTicketModalProps) {
 
     const handleDeleteTicket = async (e: React.SubmitEvent) => {
         e.preventDefault()
@@ -26,6 +28,7 @@ export function DeleteTicketModal({ open, onOpenChange, ticket }: CreateTicketMo
         }
         try {
             await deleteTicket(ticket.id)
+            await onTicketDeleted()
         } catch (error) {
             console.log(error)
         }
@@ -42,7 +45,7 @@ export function DeleteTicketModal({ open, onOpenChange, ticket }: CreateTicketMo
                         <DialogClose asChild>
                             <Button variant="outline">Cancelar</Button>
                         </DialogClose>
-                        <Button type="submit" className="cursor-pointer">Deletar ticket</Button>
+                        <Button type="submit" >Deletar ticket</Button>
                     </FieldGroup>
                 </form>
             </DialogContent>

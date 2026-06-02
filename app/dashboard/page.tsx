@@ -10,6 +10,8 @@ import { useEffect, useState } from "react"
 import { CreateTicketModal } from "../components/dashboard/create-ticket-modal"
 import { Ticket } from "@/types/ticket"
 import { getAllTickets } from "@/services/ticket.service"
+import DashboardMetrics from "../components/dashboard/dashboard-metrics"
+import DashboardSearchbar from "../components/dashboard/dashboard-searchbar"
 export default function Dashboard() {
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
@@ -22,7 +24,6 @@ export default function Dashboard() {
         } catch (error) {
             console.log(error)
         }
-
     }
 
     useEffect(() => {
@@ -33,15 +34,12 @@ export default function Dashboard() {
         <div className="mx-auto container w-full min-h-screen">
             <div>
                 <DashboardHeader />
-                <div className="border-1  rounded-md pt-6 px-4 h-full min-h-[800px]">
-                    <div className="flex items-center justify-between">
-                        <h1>Meus Tickets</h1>
-                        <Button className="cursor-pointer" onClick={() => setIsCreateModalOpen(true)}>Criar Ticket</Button>
-                    </div>
-                    <DashboardTable tickets={tickets} />
+                <div className="border-1 flex flex-col gap-6 rounded-md pt-6 px-4 h-full min-h-[800px]">
+                    <DashboardMetrics tickets={tickets} />
+                    <DashboardSearchbar />
+                    <DashboardTable tickets={tickets} onTicketDeleted={fetchTickets} onTicketUpdated={fetchTickets} />
                 </div>
             </div>
-            <CreateTicketModal open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen} onTicketCreated={fetchTickets} />
         </div>
     )
 }

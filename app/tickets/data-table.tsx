@@ -15,6 +15,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -30,6 +32,9 @@ export function DataTable<TData, TValue>({
         columns,
         getCoreRowModel: getCoreRowModel(),
     })
+
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+
 
     return (
         <div className="overflow-hidden rounded-md border">
@@ -69,7 +74,8 @@ export function DataTable<TData, TValue>({
                     ) : (
                         <TableRow>
                             <TableCell colSpan={columns.length} className="h-24 text-center">
-                                No results.
+                                Não há nenhum ticket registrado. <br />
+                                <Button onClick={() => setIsCreateModalOpen(true)}>Criar Ticket</Button >
                             </TableCell>
                         </TableRow>
                     )}

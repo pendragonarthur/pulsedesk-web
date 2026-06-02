@@ -14,9 +14,11 @@ import { DeleteTicketModal } from "./delete-ticket-modal"
 
 interface TicketActionsProps {
     ticket: Ticket
+    onTicketUpdated: () => Promise<void>
+    onTicketDeleted: () => Promise<void>
 }
 
-export function TicketActions({ ticket }: TicketActionsProps) {
+export function TicketActions({ ticket, onTicketDeleted, onTicketUpdated }: TicketActionsProps) {
 
     const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
@@ -25,16 +27,16 @@ export function TicketActions({ ticket }: TicketActionsProps) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="cursor-pointer"><MoreHorizontal /></Button>
+                <Button variant="ghost" size="icon" ><MoreHorizontal /></Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownMenuGroup>
-                    <DropdownMenuItem className="cursor-pointer" onClick={() => setIsEditModalOpen(true)}>Editar</DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer" onClick={() => setIsDeleteModalOpen(true)}>Deletar</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setIsEditModalOpen(true)}>Editar</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setIsDeleteModalOpen(true)}>Deletar</DropdownMenuItem>
                 </DropdownMenuGroup>
             </DropdownMenuContent>
-            <EditTicketModal open={isEditModalOpen} onOpenChange={setIsEditModalOpen} ticket={ticket} />
-            <DeleteTicketModal open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen} ticket={ticket} />
+            <EditTicketModal open={isEditModalOpen} onOpenChange={setIsEditModalOpen} ticket={ticket} onTicketUpdated={onTicketUpdated} />
+            <DeleteTicketModal open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen} ticket={ticket} onTicketDeleted={onTicketDeleted} />
         </DropdownMenu>
     )
 }

@@ -20,6 +20,7 @@ interface EditTicketModalProps {
     open: boolean
     onOpenChange: (open: boolean) => void
     ticket: Ticket
+    onTicketUpdated: () => Promise<void>
 }
 
 const priorityOptions = [
@@ -39,12 +40,13 @@ const statusOptions = [
 
 
 
-export function EditTicketModal({ open, onOpenChange, ticket }: EditTicketModalProps) {
+export function EditTicketModal({ open, onOpenChange, ticket, onTicketUpdated }: EditTicketModalProps) {
 
     const [title, setTitle] = useState<string>("")
     const [description, setDescription] = useState<string>("")
     const [priority, setPriority] = useState<string>("")
     const [status, setStatus] = useState<string>("")
+    const [updatedAt, setUpdatedAt] = useState<string>("")
 
 
     useEffect(() => {
@@ -59,12 +61,14 @@ export function EditTicketModal({ open, onOpenChange, ticket }: EditTicketModalP
     const handleUpdateTicket = async (e: React.SubmitEvent) => {
         e.preventDefault();
         try {
+            console.log(ticket.id)
             const response = await updateTicket(ticket.id, { title: title, description: description, priority: priority, status: status })
             setTitle(response.title)
             setDescription(response.description)
             setPriority(response.priority)
             setStatus(response.status)
-            console.log(response)
+            setUpdatedAt(response.updatedAt)
+            await onTicketUpdated()
         } catch (error) {
             console.log(error)
         }
@@ -128,7 +132,7 @@ export function EditTicketModal({ open, onOpenChange, ticket }: EditTicketModalP
                         <DialogClose asChild>
                             <Button variant="outline">Cancelar</Button>
                         </DialogClose>
-                        <Button type="submit" className="cursor-pointer">Salvar edições</Button>
+                        <Button type="submit" >Salvar edições</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>
