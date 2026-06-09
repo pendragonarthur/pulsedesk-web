@@ -1,24 +1,20 @@
-import { getColumns } from "./columns"
-import { DataTable } from "./data-table"
+"use client"
 
-import { Ticket } from "@/types/ticket"
+import { useTickets } from "@/lib/fetch-tickets"
+import { useEffect, useState } from "react"
+import DashboardTableComponent from "../components/dashboard/data-table-component"
 
-interface DashboardTableProps {
-    tickets: Ticket[]
-    onTicketUpdated: () => Promise<void>
-    onTicketDeleted: () => Promise<void>
-}
+export default function TicketsPage() {
+    const { tickets, fetchTickets } = useTickets()
 
-export default function DashboardTable({ tickets, onTicketDeleted, onTicketUpdated }: DashboardTableProps) {
-
-    const columns = getColumns({
-        onTicketUpdated,
-        onTicketDeleted,
-    })
+    useEffect(() => {
+        fetchTickets()
+    }, [])
 
     return (
-        <div className="container mx-auto">
-            <DataTable columns={columns} data={tickets} />
+        <div className="mx-auto container w-full min-h-screen py-6">
+            <h1 className="text-3xl font-bold mb-6">Todos os Tickets</h1>
+            <DashboardTableComponent tickets={tickets} onTicketDeleted={fetchTickets} onTicketUpdated={fetchTickets} />
         </div>
     )
 }

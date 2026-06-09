@@ -3,7 +3,7 @@
 import { useTickets } from "@/lib/fetch-tickets"
 
 import DashboardHeader from "../components/dashboard/dashboard-header"
-import DashboardTable from "../tickets/page"
+import DashboardTableComponent from "../components/dashboard/data-table-component"
 
 import { useEffect, useState } from "react"
 import DashboardMetrics from "../components/dashboard/dashboard-metrics"
@@ -53,7 +53,7 @@ export default function Dashboard() {
                 <div className="border-1 flex flex-col gap-6 rounded-md pt-6 px-4 h-full min-h-[800px]">
                     <DashboardMetrics tickets={tickets} />
                     <DashboardSearchbar onTicketCreated={fetchTickets} search={search} statusFilter={statusFilter} priorityFilter={priorityFilter} onSearchChange={setSearch} onStatusChange={setStatusFilter} onPriorityChange={setPriorityFilter} onClearFilters={onClearFilters} />
-                    <DashboardTable tickets={filteredTickets} onTicketDeleted={fetchTickets} onTicketUpdated={fetchTickets} />
+                    <DashboardTableComponent tickets={filteredTickets} onTicketDeleted={fetchTickets} onTicketUpdated={fetchTickets} />
                 </div>
             </div>
         </div>
