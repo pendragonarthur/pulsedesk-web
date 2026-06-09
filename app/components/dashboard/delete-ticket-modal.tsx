@@ -5,9 +5,6 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose, Dialog } from "@/components/ui/dialog"
 import { FieldGroup, Field } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import { Ticket } from "@/types/ticket"
 import { deleteTicket } from "@/services/ticket.service"
 
@@ -29,6 +26,7 @@ export function DeleteTicketModal({ open, onOpenChange, ticket, onTicketDeleted 
         try {
             await deleteTicket(ticket.id)
             await onTicketDeleted()
+            onOpenChange(false)
         } catch (error) {
             console.log(error)
         }

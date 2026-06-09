@@ -5,15 +5,18 @@ import { useState } from "react"
 
 
 
-export default async function fetchTickets() {
+export function useTickets() {
 
     const [tickets, setTickets] = useState<Ticket[]>([])
 
-    try {
-        const data = await getAllTickets()
-        setTickets(data)
-    } catch (error) {
-        console.log(error)
-        throw new Error(`Não foi possível buscar os tickets.`)
+    const fetchTickets = async () => {
+        try {
+            const data = await getAllTickets()
+            setTickets(data)
+        } catch (error) {
+            console.log(error)
+        }
     }
+
+    return { tickets, setTickets, fetchTickets }
 }

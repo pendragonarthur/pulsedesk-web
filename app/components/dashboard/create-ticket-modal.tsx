@@ -31,19 +31,20 @@ export function CreateTicketModal({ open, onOpenChange, onTicketCreated }: Creat
 
     const handleCreateTicket = async (e: React.SubmitEvent) => {
         e.preventDefault()
+
+        if (!title || !description) {
+            return
+        }
+
         try {
             await createTicket({ title: title, description: description })
-            if (!title || !description) {
-                return
-            }
-            onTicketCreated()
-            onOpenChange(false)
             setTitle("")
             setDescription("")
+            onTicketCreated()
+            onOpenChange(false)
         } catch (error) {
             console.log(error)
         }
-
     }
 
     return (

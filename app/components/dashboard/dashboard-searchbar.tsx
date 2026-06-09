@@ -1,12 +1,11 @@
 "use client"
-import { useState } from "react"
+import React, { useState } from "react"
 
 import { Button } from "@/components/ui/button"
-import { Field, FieldGroup } from "@/components/ui/field"
+import { Field } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CreateTicketModal } from "./create-ticket-modal"
-import fetchTickets from "@/lib/fetch-tickets"
 
 
 const statusOptions = [
@@ -24,15 +23,26 @@ const priorityOptions = [
     "Urgente"
 ]
 
-export default function DashboardSearchbar() {
+interface DashboardSearchbarProps {
+    onTicketCreated: () => Promise<void>
+    search: string
+    statusFilter: string
+    priorityFilter: string
+    onSearchChange: (search: string) => void
+    onStatusChange: (status: string) => void
+    onPriorityChange: (priority: string) => void
+    onClearFilters: () => void
+}
+
+export default function DashboardSearchbar({ onTicketCreated, search, statusFilter, priorityFilter, onSearchChange, onStatusChange, onPriorityChange, onClearFilters }: DashboardSearchbarProps) {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
 
     return (
         <Field orientation="horizontal" className="flex h-full items-center">
             <Button onClick={() => setIsCreateModalOpen(true)}>Criar Ticket</Button >
-            <Input type="search" placeholder="Buscar ticket" />
+            <Input type="search" placeholder="Buscar ticket" value={search} onChange={(e) => onSearchChange(e.target.value)} />
             <Button>Buscar</Button>
-            <Select>
+            <Select value={statusFilter} onValueChange={onStatusChange}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Status" />
                 </SelectTrigger>
@@ -44,19 +54,20 @@ export default function DashboardSearchbar() {
                     </SelectGroup>
                 </SelectContent>
             </Select>
-            <Select>
+            <Select value={priorityFilter} onValueChange={onPriorityChange}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Prioridade" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectGroup>
+                    <SelectGroup >
                         {priorityOptions.map((i) => (
                             <SelectItem value={i} key={i}>{i}</SelectItem>
                         ))}
                     </SelectGroup>
                 </SelectContent>
             </Select>
-            <CreateTicketModal open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen} onTicketCreated={fetchTickets} />
+            <Button onClick={onClearFilters}>Limpar Filtros</Button>
+            <CreateTicketModal open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen} onTicketCreated={onTicketCreated} />
         </Field >
     )
 }

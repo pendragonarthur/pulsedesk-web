@@ -61,7 +61,6 @@ export function EditTicketModal({ open, onOpenChange, ticket, onTicketUpdated }:
     const handleUpdateTicket = async (e: React.SubmitEvent) => {
         e.preventDefault();
         try {
-            console.log(ticket.id)
             const response = await updateTicket(ticket.id, { title: title, description: description, priority: priority, status: status })
             setTitle(response.title)
             setDescription(response.description)
@@ -69,6 +68,7 @@ export function EditTicketModal({ open, onOpenChange, ticket, onTicketUpdated }:
             setStatus(response.status)
             setUpdatedAt(response.updatedAt)
             await onTicketUpdated()
+            onOpenChange(false)
         } catch (error) {
             console.log(error)
         }

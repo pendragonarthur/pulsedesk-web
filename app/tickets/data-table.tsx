@@ -33,9 +33,6 @@ export function DataTable<TData, TValue>({
         getCoreRowModel: getCoreRowModel(),
     })
 
-    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
-
-
     return (
         <div className="overflow-hidden rounded-md border">
             <Table>
@@ -75,7 +72,6 @@ export function DataTable<TData, TValue>({
                         <TableRow>
                             <TableCell colSpan={columns.length} className="h-24 text-center">
                                 Não há nenhum ticket registrado. <br />
-                                <Button onClick={() => setIsCreateModalOpen(true)}>Criar Ticket</Button >
                             </TableCell>
                         </TableRow>
                     )}
