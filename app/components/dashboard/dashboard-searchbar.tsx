@@ -2,7 +2,7 @@
 import React, { useState } from "react"
 
 import { Button } from "@/components/ui/button"
-import { Field } from "@/components/ui/field"
+import { Field, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CreateTicketModal } from "./create-ticket-modal"
@@ -38,12 +38,11 @@ export default function DashboardSearchbar({ onTicketCreated, search, statusFilt
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
 
     return (
-        <Field orientation="horizontal" className="flex h-full items-center">
-            <Button onClick={() => setIsCreateModalOpen(true)}>Criar Ticket</Button >
-            <Input type="search" placeholder="Buscar ticket" value={search} onChange={(e) => onSearchChange(e.target.value)} />
-            <Button>Buscar</Button>
+        <FieldGroup className="flex flex-col md:flex-row gap-2 w-full items-center">
+            <Button onClick={() => setIsCreateModalOpen(true)} className="flex-shrink-0 w-full md:w-auto">Criar Ticket</Button>
+            <Input type="search" placeholder="Buscar ticket" value={search} onChange={(e) => onSearchChange(e.target.value)} className="flex-1 min-w-[150px]" />
             <Select value={statusFilter} onValueChange={onStatusChange}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-full md:w-[140px]">
                     <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -55,19 +54,19 @@ export default function DashboardSearchbar({ onTicketCreated, search, statusFilt
                 </SelectContent>
             </Select>
             <Select value={priorityFilter} onValueChange={onPriorityChange}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-full md:w-[140px]">
                     <SelectValue placeholder="Prioridade" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectGroup >
+                    <SelectGroup>
                         {priorityOptions.map((i) => (
                             <SelectItem value={i} key={i}>{i}</SelectItem>
                         ))}
                     </SelectGroup>
                 </SelectContent>
             </Select>
-            <Button onClick={onClearFilters}>Limpar Filtros</Button>
+            <Button onClick={onClearFilters} className="flex-shrink-0 w-full md:w-auto">Limpar Filtros</Button>
             <CreateTicketModal open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen} onTicketCreated={onTicketCreated} />
-        </Field >
+        </FieldGroup>
     )
 }

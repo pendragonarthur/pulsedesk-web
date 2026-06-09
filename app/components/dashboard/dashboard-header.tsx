@@ -21,7 +21,7 @@ export default function DashboardHeader() {
             <div>
                 <h1>PulseDesk</h1>
             </div>
-            <div className="flex items-center gap-4 justify-center">
+            <div className="flex items-center justify-center">
                 <DropdownMenu>
                     <DropdownMenuTrigger className="cursor-pointer">
                         <Avatar className="flex items-center justify-center px-2"><User /></Avatar>

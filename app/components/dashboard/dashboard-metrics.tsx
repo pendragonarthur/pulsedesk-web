@@ -54,7 +54,7 @@ export default function DashboardMetrics({ tickets }: DashboardMetricsProps) {
     ]
 
     return (
-        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <section className="grid gap-4 xl:grid-cols-5 grid-cols-2">
             {
                 ticketCard.map((card) => {
                     return (
