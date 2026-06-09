@@ -17,12 +17,18 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { useSignUp } from "@/hooks/use-signup"
+import { useRouter } from "next/navigation"
 
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
 
   const { handleSubmit, name, setName, email, setEmail, password, setConfirmPassword, setPassword, confirmPassword } = useSignUp()
 
+  const router = useRouter()
+
+  const handleSignup = () => {
+    router.push("/")
+  }
 
   return (
     <Card {...props}>
@@ -65,7 +71,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
             </Field>
             <FieldGroup>
               <Field>
-                <Button type="submit">Registrar</Button>
+                <Button type="submit" onClick={handleSignup}>Registrar</Button>
                 <FieldDescription className="px-6 text-center">
                   <a href="/">Já possuo uma conta</a>
                 </FieldDescription>
